@@ -181,14 +181,14 @@ get_pof_httr2 <- function(year, selected = FALSE, anthropometry = FALSE, vars = 
   }
   if (deflator == TRUE) {
     if (exists("pof_deflator", where="package:POFIBGE", mode="function")) {
-      ftpdef <- ("https://ftp.ibge.gov.br/Orcamentos_Familiares/")
-      deffiles <- unlist(strsplit(unlist(strsplit(unlist(strsplit(gsub("\r\n", "\n", httr2::req_perform(req=httr2::request(base_url=paste0(ftpdef, "Documentacao_Geral/"))) |> httr2::resp_body_string()), "\n")), "<a href=[[:punct:]]")), ".zip"))
+      ftpdef <- ("https://ftp.ibge.gov.br/Orcamentos_Familiares/Documentacao_Geral/")
+      deffiles <- unlist(strsplit(unlist(strsplit(unlist(strsplit(gsub("\r\n", "\n", httr2::req_perform(req=httr2::request(base_url=ftpdef)) |> httr2::resp_body_string()), "\n")), "<a href=[[:punct:]]")), ".zip"))
       defzip <- paste0(deffiles[which(startsWith(deffiles, "Deflatores"))], ".zip")
       if (reload == FALSE & file.exists(paste0(savedir, "/Deflatores.zip"))) {
         message("The reload argument was defined as FALSE and the file of deflator was already downloaded, so the download process will not execute again.\n")
       }
       else {
-        httr2::req_perform(req=httr2::request(base_url=paste0(ftpdef, "Documentacao_Geral/", defzip)) |> httr2::req_progress(), path=paste0(savedir, "/Deflatores.zip"), verbosity=1)
+        httr2::req_perform(req=httr2::request(base_url=paste0(ftpdef, defzip)) |> httr2::req_progress(), path=paste0(savedir, "/Deflatores.zip"), verbosity=1)
         if (reload == FALSE) {
           message("The definition of FALSE for the reload argument will be ignored, since the file of deflator was not downloaded yet.\n")
         }
@@ -217,3 +217,4 @@ get_pof_httr2 <- function(year, selected = FALSE, anthropometry = FALSE, vars = 
   }
   return(data_pof)
 }
+
