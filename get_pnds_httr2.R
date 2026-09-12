@@ -29,6 +29,8 @@
 get_pnds_httr2 <- function(year, section = "Female", vars = NULL,
                      labels = TRUE, deflator = TRUE, design = TRUE, reload = TRUE, savedir = tempdir())
 {
+  message("The PNDSIBGE package was archived due to the impossibility of restructuring the files related to the survey microdata.\n")
+  return(NULL)
   message("The get_pnds function is under development and will be available soon in package PNDSIBGE.\n")
   return(NULL)
   if (year != 2023) {
