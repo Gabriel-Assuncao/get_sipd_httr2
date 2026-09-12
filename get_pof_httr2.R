@@ -217,4 +217,3 @@ get_pof_httr2 <- function(year, selected = FALSE, anthropometry = FALSE, vars = 
   }
   return(data_pof)
 }
-
